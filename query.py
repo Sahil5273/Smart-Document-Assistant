@@ -1,11 +1,15 @@
 import os
+from dotenv import load_dotenv
 from google import genai
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_chroma import Chroma
 
-# 1. Setup Gemini (Paste your actual API key here for testing)
-GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
-genai.configure(api_key=GEMINI_API_KEY)
+# 1. Load the hidden variables from your .env file
+load_dotenv()
+
+# 2. Setup Gemini by pulling the key securely from the environment
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY") 
+client = genai.Client(api_key=GEMINI_API_KEY)
 
 # We use Gemini 1.5 Flash because it is incredibly fast and free
 model = genai.GenerativeModel('gemini-1.5-flash') 
